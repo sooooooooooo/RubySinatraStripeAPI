@@ -21,3 +21,12 @@ get "/public-keys" do
 	content_type "application/json"
 	{ key: ENV["STRIPE_PUBLISHABLE_KEY"] }.to_json
 end
+
+post "/my-post-route" do
+	data = JSON.parse(request.body.read, symbolize_names: true)
+	puts "POST with #{ data.to_json } to /my-post-route"
+
+	# put somthing in the db
+	# file API request to Stripe
+	data.to_json
+end

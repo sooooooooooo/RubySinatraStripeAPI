@@ -11,6 +11,7 @@
 		<div id="container">
 			<div id="panel">
 				<h1>Sinatra Demo with Stripe API</h1>
+				<button type="submit" id="btn">Click me!</button>
 			</div>
 		</div>
 	</div>
@@ -26,6 +27,33 @@
 			.catch(err => {
 				console.error("Error: ", error);
 			});
+
+		var button = document.getElementById("btn");
+		btn.addEventListener("click", function(e) {
+			e.preventDefault();
+			fetch("/my-post-route", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					test: "abc123",
+					payment_method: "pm_card_visa",
+					customer: "cus_23abc",
+					address: {
+						line1: "123 Main St",
+					}
+				}),
+			})
+				.then(response => response.json())
+				.then(data => {
+					console.log("Success: ", data);
+				})
+				.catch(err => {
+					console.error("Error: ", error);
+				});
+		})
+
 		console.log("hello world");
 	</script>
 </body>
