@@ -16,7 +16,16 @@
 	</div>
 	<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 	<script>
-		var stripe = Stripe("pk_test_51HkZ7WE4Us7MOLgjct8boCMbaLJMfhWPjLzTRA8GzjQKKmXMmp8SxiiEqIy7VCaceevTMsQcPl7r9EJUB1miE74I004ZNpK54C");
+		var stripe;
+		fetch("/public-keys")
+			.then(response => response.json())
+			.then(data => {
+				stripe = Stripe(data.key);
+				console.log("Success: ", data);
+			})
+			.catch(err => {
+				console.error("Error: ", error);
+			});
 		console.log("hello world");
 	</script>
 </body>
